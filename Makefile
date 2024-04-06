@@ -4,7 +4,7 @@ CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 INCLUDE = pipex.h Makefile
 
-SRC = ft_subst.c \
+SRC = ft_substr.c \
 	  ft_split.c \
 	  ft_strjoin.c \
 	  pipex.c \

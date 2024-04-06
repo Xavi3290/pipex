@@ -22,6 +22,7 @@ static char    *get_env(char **env)
             return (env[i] + 5);
         i++;
     }
+    return (NULL);
 }
 
 char *get_path(char *cmd, char **env)
@@ -32,10 +33,10 @@ char *get_path(char *cmd, char **env)
     char    *exec;
 
     i = 0;
-    all_path = ft_split(get_env(env), ":");
+    all_path = ft_split(get_env(env), ':');
     while (all_path[i])
     {
-        path_part =ft_strjoin(all_path[i], "/");
+        path_part = ft_strjoin(all_path[i], "/");
         exec = ft_strjoin(path_part, cmd);
         free(path_part);
         if (!access(exec, F_OK | X_OK))

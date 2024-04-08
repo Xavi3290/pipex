@@ -6,7 +6,7 @@
 #    By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 12:29:05 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/04/08 12:27:09 by xroca-pe         ###   ########.fr        #
+#    Updated: 2024/04/08 12:29:09 by xroca-pe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,11 @@ SRC = ft_substr.c \
 	  pipex.c \
 	  utils.c 
 	  
-SRC_BONUS = 
+SRC_BONUS = ft_substr.c \
+	  		ft_split.c \
+	  		ft_strjoin.c \
+			pipex_bonus.c \
+			utils_bonus.c
 
 OBJ := $(SRC:.c=.o)
 

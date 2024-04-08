@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 11:53:11 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/08 16:14:01 by xroca-pe         ###   ########.fr       */
+/*   Created: 2024/04/08 11:59:34 by xroca-pe          #+#    #+#             */
+/*   Updated: 2024/04/08 19:56:01 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	ft_error(char *str)
 {
@@ -72,25 +72,19 @@ char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
-int	open_file(char *file, int infile)
+int	open_file(char *file, int option)
 {
 	int	fd;
+    int fd_i;
     
-    if (infile)
-    {
+    if (option == 1)
 	    fd = open(file, O_RDONLY | O_CREAT, 0644);
-        if (access(file, R_OK))
-		    ft_error("permission denied");
-	    if (fd == -1)
-		    ft_error("infile");
-    }
+        fd_i = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        if (dup2(fd_i, STDIN_FILENO) == -1)
+            ft_error("error: failed to redirect stdout");
     else
-    {
-        fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-        if (access(file, W_OK))
-			ft_error("permission denied");
-        if (fd == -1)
-		    ft_error("outfile");
-    }
+        fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    if (fd == -1)
+		    ft_error("error open file");
 	return (fd);
 }

@@ -6,17 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:29:19 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/08 11:57:03 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:50:21 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	ft_error(char *str)
-{
-	perror(str);
-	exit(EXIT_FAILURE);
-}
 
 static void	exec_cmd(char *cmd, char **env)
 {
@@ -39,7 +33,7 @@ static void	parent(char **argv, int *fd, char **env)
 	int	fd_p;
 
 	close(fd[1]);
-	fd_p = open_file_parent(argv[4]);
+	fd_p = open_file(argv[4], 0);
 	if (dup2(fd_p, STDOUT_FILENO) == -1)
 		ft_error("error: failed to redirect stdout");
 	if (dup2(fd[0], STDIN_FILENO) == -1)
@@ -52,7 +46,7 @@ static void	child(char **argv, int *fd, char **env)
 	int	fd_c;
 
 	close(fd[0]);
-	fd_c = open_file_child(argv[1]);
+	fd_c = open_file(argv[1], 1);
 	if (dup2(fd_c, STDIN_FILENO) == -1)
 		ft_error("error: failed to redirect stdin");
 	if (dup2(fd[1], STDOUT_FILENO) == -1)

@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/04/04 12:29:05 by xroca-pe          #+#    #+#              #
+#    Updated: 2024/04/08 12:27:09 by xroca-pe         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = pipex
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
-INCLUDE = pipex.h Makefile
+INCLUDE = pipex_bonus.h pipex.h Makefile
 
 SRC = ft_substr.c \
 	  ft_split.c \

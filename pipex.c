@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:29:19 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/08 18:50:21 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:10:41 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	exec_cmd(char *cmd, char **env)
 
 	s_cmd = ft_split(cmd, ' ');
 	if (!s_cmd)
-		ft_error("split error");
+		ft_error("error in split");
 	path = get_path(s_cmd[0], env);
 	if (execve(path, s_cmd, env) == -1)
 	{
@@ -63,10 +63,10 @@ int	main(int argc, char **argv, char **env)
 	if (argc != 5)
 		ft_error("./pipex file1 cmd cmd file2");
 	if (pipe(fd) == -1)
-		ft_error("fail in pipe");
+		ft_error("error in pipe");
 	pid = fork();
 	if (pid == -1)
-		ft_error("fail in fork");
+		ft_error("error in fork");
 	if (!pid)
 		child(argv, fd, env);
 	wait(&status);

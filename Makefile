@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+         #
+#    By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 12:29:05 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/04/08 12:29:09 by xroca-pe         ###   ########.fr        #
+#    Updated: 2024/04/09 13:45:20 by xavi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ SRC_BONUS = ft_substr.c \
 	  		ft_split.c \
 	  		ft_strjoin.c \
 			pipex_bonus.c \
-			utils_bonus.c
+			utils_bonus.c \
+			get_next_line.c \
+			get_next_line_utils.c
 
 OBJ := $(SRC:.c=.o)
 

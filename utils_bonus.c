@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:59:34 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/08 19:56:01 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:10:29 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ char	*get_path(char *cmd, char **env)
 	i = 0;
 	all_path = ft_split(get_env(env), ':');
 	if (!all_path)
-		ft_error("split error");
+		ft_error("error in split");
 	while (all_path[i])
 	{
 		path_part = ft_strjoin(all_path[i], "/");
 		exec = ft_strjoin(path_part, cmd);
 		if (!exec)
-			ft_error("error strjoin");
+			ft_error("error in strjoin");
 		free(path_part);
 		if (!access(exec, F_OK | X_OK))
 			return (exec);
@@ -72,16 +72,16 @@ char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
-int	open_file(char *file, int option)
+int	open_file(char *file, int option, char *file2)
 {
 	int	fd;
     int fd_i;
     
     if (option == 1)
-	    fd = open(file, O_RDONLY | O_CREAT, 0644);
-        fd_i = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	    fd_i = open(file2, O_RDONLY | O_CREAT, 0644);
+        fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
         if (dup2(fd_i, STDIN_FILENO) == -1)
-            ft_error("error: failed to redirect stdout");
+            ft_error("error: failed to redirect stdin");
     else
         fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
     if (fd == -1)

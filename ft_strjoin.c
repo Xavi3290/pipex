@@ -6,13 +6,12 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:26:37 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 13:57:52 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/09 16:50:14 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 
 size_t	ft_strlen(const char *s)
 {
@@ -47,21 +46,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	str[i] = '\0';
 	return (str);
-}
-
-static void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		ft_putchar_fd(s[i], fd);
-		i++;
-	}
 }

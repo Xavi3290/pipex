@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:59:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 13:58:16 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/09 17:15:52 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	ft_putstr_fd(char *s, int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_putstr_fd(char *s, int fd);
 
 void	ft_error(char *str);

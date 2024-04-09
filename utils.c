@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:53:11 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 13:10:55 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/09 18:11:06 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ void	ft_free_splits(char **split)
 	int	i;
 
 	i = 0;
-	while (split[i])
+	if (split)
 	{
-		free(split[i]);
-		i++;
+		while (split[i])
+		{
+			free(split[i]);
+			i++;
+		}
+		free(split);
 	}
-	free(split);
 }
 
 static char	*get_env(char **env)
@@ -59,6 +62,8 @@ char	*get_path(char *cmd, char **env)
 	while (all_path[i])
 	{
 		path_part = ft_strjoin(all_path[i], "/");
+		if (!path_part)
+			ft_error("error in strjoin");
 		exec = ft_strjoin(path_part, cmd);
 		if (!exec)
 			ft_error("error in strjoin");

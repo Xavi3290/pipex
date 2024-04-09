@@ -6,11 +6,27 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:55:20 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 14:14:19 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/09 19:10:35 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
+
+static void	exec_cmd(char *cmd, char **env)
+{
+	char	**s_cmd;
+	char	*path;
+
+	s_cmd = ft_split(cmd, ' ');
+	if (!s_cmd)
+		ft_error("error in split");
+	path = get_path(s_cmd[0], env);
+	if (execve(path, s_cmd, env) == -1)
+	{
+		ft_free_splits(s_cmd);
+		ft_error("command not found");
+	}
+}
 
 static void put_in_pipe(char **argv, int *fd)
 {
@@ -46,11 +62,11 @@ static void here_doc(char **argv)
 	{
 		close(fd[1]);
 		if (dup2(fd[0], STDIN_FILENO) == -1)
-		    ft_error("error: failed to redirect stdin");
+		    ft_error("error failed to redirect stdin");
 	}
 }
 
-static ft_pipe(char *cmd, char **env)
+static void ft_pipe(char *cmd, char **env)
 {
     int		fd[2];
 	pid_t	pid;
@@ -65,7 +81,7 @@ static ft_pipe(char *cmd, char **env)
     {
         close(fd[0]);
 	    if (dup2(fd[1], STDOUT_FILENO) == -1)
-		    ft_error("error: failed to redirect stdout");
+		    ft_error("error failed to redirect stdout");
 	    exec_cmd(cmd, env);
     }
 	wait(&status);
@@ -73,26 +89,9 @@ static ft_pipe(char *cmd, char **env)
     {
         close(fd[1]);
 	    if (dup2(fd[0], STDIN_FILENO) == -1)
-		    ft_error("error: failed to redirect stdin");
+		    ft_error("error failed to redirect stdin");
     }
 }
-
-static void	exec_cmd(char *cmd, char **env)
-{
-	char	**s_cmd;
-	char	*path;
-
-	s_cmd = ft_split(cmd, ' ');
-	if (!s_cmd)
-		ft_error("error in split");
-	path = get_path(s_cmd[0], env);
-	if (execve(path, s_cmd, env) == -1)
-	{
-		ft_free_splits(s_cmd);
-		ft_error("command not found");
-	}
-}
-
 
 int	main(int argc, char **argv, char **env)
 {
@@ -104,8 +103,8 @@ int	main(int argc, char **argv, char **env)
     i = 2;
     if (!ft_strncmp(argv[1], "here_doc", 8))
     {
-        if (argc <  6)
-            ft_error("./pipex here_doc lim cmd cmd ... file2");
+        if (argc < 6)
+            ft_error("./pipex here_doc lim cmd cmd file2");
         i = 3;
         fd = open_file(argv[argc - 1], 0, NULL);
         here_doc(argv);
@@ -113,9 +112,10 @@ int	main(int argc, char **argv, char **env)
     else
         fd = open_file(argv[argc - 1], 1, argv[1]);
     while (i < argc - 2)
-        ft_pipe(argv[i], env);
+        ft_pipe(argv[i++], env);
     if (dup2(fd, STDOUT_FILENO) == -1)
-        ft_error("error: failed to redirect stdout");
+        ft_error("error failed to redirect stdout");
     exec_cmd(argv[argc - 1], env);
+	close(fd);
 	return (0);
 }

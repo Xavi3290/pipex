@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:29:19 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 13:10:41 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/09 17:26:03 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ static void	parent(char **argv, int *fd, char **env)
 	close(fd[1]);
 	fd_p = open_file(argv[4], 0);
 	if (dup2(fd_p, STDOUT_FILENO) == -1)
-		ft_error("error: failed to redirect stdout");
+		ft_error("error failed to redirect stdout");
 	if (dup2(fd[0], STDIN_FILENO) == -1)
-		ft_error("error: failed to redirect stdin");
+		ft_error("error failed to redirect stdin");
 	exec_cmd(argv[3], env);
+	close(fd_p);
 }
 
 static void	child(char **argv, int *fd, char **env)
@@ -48,10 +49,11 @@ static void	child(char **argv, int *fd, char **env)
 	close(fd[0]);
 	fd_c = open_file(argv[1], 1);
 	if (dup2(fd_c, STDIN_FILENO) == -1)
-		ft_error("error: failed to redirect stdin");
+		ft_error("error failed to redirect stdin");
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		ft_error("error: failed to redirect stdout");
+		ft_error("error failed to redirect stdout");
 	exec_cmd(argv[2], env);
+	close(fd_c);
 }
 
 int	main(int argc, char **argv, char **env)

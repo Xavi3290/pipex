@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:59:34 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 13:10:29 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/09 18:40:35 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ void	ft_free_splits(char **split)
 	int	i;
 
 	i = 0;
-	while (split[i])
+	if (split)
 	{
-		free(split[i]);
-		i++;
+		while (split[i])
+		{
+			free(split[i]);
+			i++;
+		}
+		free(split);
 	}
-	free(split);
 }
 
 static char	*get_env(char **env)
@@ -59,6 +62,8 @@ char	*get_path(char *cmd, char **env)
 	while (all_path[i])
 	{
 		path_part = ft_strjoin(all_path[i], "/");
+		if (!path_part)
+			ft_error("error in strjoin");
 		exec = ft_strjoin(path_part, cmd);
 		if (!exec)
 			ft_error("error in strjoin");
@@ -78,12 +83,17 @@ int	open_file(char *file, int option, char *file2)
     int fd_i;
     
     if (option == 1)
-	    fd_i = open(file2, O_RDONLY | O_CREAT, 0644);
-        fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	{
+	    fd_i = open(file2, O_RDONLY | O_CREAT, 0777);
+        fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
         if (dup2(fd_i, STDIN_FILENO) == -1)
-            ft_error("error: failed to redirect stdin");
+            ft_error("error failed to redirect stdin");
+		if (fd_i == -1)
+			ft_error("error open file");
+		close(fd_i);
+	}
     else
-        fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
     if (fd == -1)
 		    ft_error("error open file");
 	return (fd);

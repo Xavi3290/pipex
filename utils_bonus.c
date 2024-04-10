@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:59:34 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 18:40:35 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 13:03:42 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ char	*get_path(char *cmd, char **env)
 			ft_error("error in strjoin");
 		exec = ft_strjoin(path_part, cmd);
 		if (!exec)
-			ft_error("error in strjoin");
+			ft_error("error in strjoin");	
 		free(path_part);
-		if (!access(exec, F_OK | X_OK))
+		if (access(exec, F_OK | X_OK) == 0)
 			return (exec);
 		free(exec);
 		i++;

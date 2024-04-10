@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 12:46:13 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 13:40:48 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 13:04:37 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_free(char **buffer)
 	return (NULL);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen2(const char *s)
 {
 	size_t	i;
 
@@ -52,7 +52,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin2(char *s1, char const *s2)
 {
 	char	*str;
 	size_t	i;
@@ -63,11 +63,11 @@ char	*ft_strjoin(char *s1, char const *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (s1)
-		len_s1 = ft_strlen(s1);
-	str = malloc((len_s1 + ft_strlen(s2) + 1) * sizeof(char));
+		len_s1 = ft_strlen2(s1);
+	str = malloc((len_s1 + ft_strlen2(s2) + 1) * sizeof(char));
 	if (!str)
 		return (free(s1), NULL);
-	while (i < len_s1 + ft_strlen(s2))
+	while (i < len_s1 + ft_strlen2(s2))
 	{
 		if (i < len_s1)
 			str[i] = s1[i];

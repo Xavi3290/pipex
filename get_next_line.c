@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 12:45:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 13:39:53 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 13:05:03 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*read_line(int fd, char *buf)
 		if ((read_bytes == 0 && !buf))
 			return (free(line), NULL);
 		line[read_bytes] = '\0';
-		buf = ft_strjoin(buf, line);
+		buf = ft_strjoin2(buf, line);
 		if (!buf)
 			return (free(line), NULL);
 	}
@@ -78,7 +78,7 @@ static char	*clean_buf(char *buf)
 		i++;
 	if (!buf[i])
 		return (ft_free(&buf));
-	subs = malloc(sizeof(char) * ((ft_strlen(buf) - i) + 1));
+	subs = malloc(sizeof(char) * ((ft_strlen2(buf) - i) + 1));
 	if (!subs)
 		return (ft_free(&buf));
 	while (buf[i] != '\0')

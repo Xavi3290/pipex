@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 12:46:32 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 13:40:22 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 13:04:18 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 char	*get_next_line(int fd);
 char	*ft_free(char **buffer);
-size_t	ft_strlen(const char *s);
+size_t	ft_strlen2(const char *s);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s1, char const *s2);
+char	*ft_strjoin2(char *s1, char const *s2);
 
 #endif

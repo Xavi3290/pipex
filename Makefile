@@ -6,13 +6,13 @@
 #    By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 12:29:05 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/04/09 16:50:48 by xavi             ###   ########.fr        #
+#    Updated: 2024/04/10 11:58:38 by xavi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 RM = rm -f
 INCLUDE = pipex_bonus.h pipex.h Makefile
 
@@ -24,6 +24,7 @@ SRC = ft_substr.c \
 	  
 SRC_BONUS = ft_substr.c \
 	  		ft_split.c \
+			ft_strjoin.c \
 	  		ft_putstr_fd.c \
 			pipex_bonus.c \
 			utils_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:55:20 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/09 19:10:35 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 13:04:06 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	main(int argc, char **argv, char **env)
         ft_pipe(argv[i++], env);
     if (dup2(fd, STDOUT_FILENO) == -1)
         ft_error("error failed to redirect stdout");
-    exec_cmd(argv[argc - 1], env);
+    exec_cmd(argv[argc - 2], env);
 	close(fd);
 	return (0);
 }

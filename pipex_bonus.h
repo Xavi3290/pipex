@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:59:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/10 13:03:05 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 20:13:41 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_error(char *str);
 char	*get_path(char *cmd, char **env);
 void	ft_free_splits(char **split);
-int	    open_file(char *file, int option, char *file2);
+int		open_file(char *file, int option, char *file2);
 
 char	*get_next_line(int fd);
 

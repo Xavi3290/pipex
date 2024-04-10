@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:59:34 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/10 13:03:42 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 20:14:01 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*get_path(char *cmd, char **env)
 			ft_error("error in strjoin");
 		exec = ft_strjoin(path_part, cmd);
 		if (!exec)
-			ft_error("error in strjoin");	
+			ft_error("error in strjoin");
 		free(path_part);
 		if (access(exec, F_OK | X_OK) == 0)
 			return (exec);
@@ -80,21 +80,21 @@ char	*get_path(char *cmd, char **env)
 int	open_file(char *file, int option, char *file2)
 {
 	int	fd;
-    int fd_i;
-    
-    if (option == 1)
+	int	fd_i;
+
+	if (option == 1)
 	{
-	    fd_i = open(file2, O_RDONLY | O_CREAT, 0777);
-        fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-        if (dup2(fd_i, STDIN_FILENO) == -1)
-            ft_error("error failed to redirect stdin");
+		fd_i = open(file2, O_RDONLY | O_CREAT, 0777);
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		if (dup2(fd_i, STDIN_FILENO) == -1)
+			ft_error("error failed to redirect stdin");
 		if (fd_i == -1)
 			ft_error("error open file");
 		close(fd_i);
 	}
-    else
-        fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
-    if (fd == -1)
-		    ft_error("error open file");
+	else
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
+	if (fd == -1)
+		ft_error("error open file");
 	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:55:20 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/10 13:18:46 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 20:45:50 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void	exec_cmd(char *cmd, char **env)
 	}
 }
 
-static void put_in_pipe(char **argv, int *fd)
+static void	put_in_pipe(char **argv, int *fd)
 {
-	char *line;
+	char	*line;
 
 	close(fd[0]);
 	while (1)
@@ -39,36 +39,16 @@ static void put_in_pipe(char **argv, int *fd)
 		if (!ft_strncmp(line, argv[2], ft_strlen(argv[2])))
 		{
 			free(line);
-			break;
+			exit(0);
 		}
 		ft_putstr_fd(line, fd[1]);
 		free(line);
 	}
 }
 
-static void here_doc(char **argv)
+static void	here_doc(char **argv)
 {
-    int	fd[2];
-	pid_t pid;
-	int status;
-
-	if (pipe(fd) == -1)
-		ft_error("error in pipe");
-	pid = fork();
-	if (!pid)
-		put_in_pipe(argv, fd);
-	wait (&status);
-	if (pid)
-	{
-		close(fd[1]);
-		if (dup2(fd[0], STDIN_FILENO) == -1)
-		    ft_error("error failed to redirect stdin");
-	}
-}
-
-static void ft_pipe(char *cmd, char **env)
-{
-    int		fd[2];
+	int		fd[2];
 	pid_t	pid;
 	int		status;
 
@@ -78,44 +58,66 @@ static void ft_pipe(char *cmd, char **env)
 	if (pid == -1)
 		ft_error("error in fork");
 	if (!pid)
-    {
-        close(fd[0]);
-	    if (dup2(fd[1], STDOUT_FILENO) == -1)
-		    ft_error("error failed to redirect stdout");
-	    exec_cmd(cmd, env);
-    }
+		put_in_pipe(argv, fd);
 	wait(&status);
 	if (pid)
-    {
-        close(fd[1]);
-	    if (dup2(fd[0], STDIN_FILENO) == -1)
-		    ft_error("error failed to redirect stdin");
-    }
+	{
+		close(fd[1]);
+		if (dup2(fd[0], STDIN_FILENO) == -1)
+			ft_error("error failed to redirect stdout");
+	}
+}
+
+static void	ft_pipe(char *cmd, char **env)
+{
+	int		fd[2];
+	pid_t	pid;
+	int		status;
+
+	if (pipe(fd) == -1)
+		ft_error("error in pipe");
+	pid = fork();
+	if (pid == -1)
+		ft_error("error in fork");
+	if (!pid)
+	{
+		close(fd[0]);
+		if (dup2(fd[1], STDOUT_FILENO) == -1)
+			ft_error("error failed to redirect stdout");
+		exec_cmd(cmd, env);
+	}
+	wait(&status);
+	if (pid)
+	{
+		close(fd[1]);
+		if (dup2(fd[0], STDIN_FILENO) == -1)
+			ft_error("error failed to redirect stdin");
+	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
-    int i;
-    int fd;
-    
+	int	i;
+	int	fd;
+
 	if (argc < 5)
 		ft_error("./pipex file1 cmd cmd ... file2");
-    i = 2;
-    if (!ft_strncmp(argv[1], "here_doc", 8))
-    {
-        if (argc < 6)
-            ft_error("./pipex here_doc lim cmd cmd ... file2");
-        i = 3;
-        fd = open_file(argv[argc - 1], 0, NULL);
-        here_doc(argv);
-    }
-    else
-        fd = open_file(argv[argc - 1], 1, argv[1]);
-    while (i < argc - 2)
-        ft_pipe(argv[i++], env);
-    if (dup2(fd, STDOUT_FILENO) == -1)
-        ft_error("error failed to redirect stdout");
-    exec_cmd(argv[argc - 2], env);
+	i = 2;
+	if (!ft_strncmp(argv[1], "here_doc", 8))
+	{
+		if (argc < 6)
+			ft_error("./pipex here_doc lim cmd cmd ... file2");
+		i = 3;
+		fd = open_file(argv[argc - 1], 0, NULL);
+		here_doc(argv);
+	}
+	else
+		fd = open_file(argv[argc - 1], 1, argv[1]);
+	while (i < argc - 2)
+		ft_pipe(argv[i++], env);
+	if (dup2(fd, STDOUT_FILENO) == -1)
+		ft_error("error failed to redirect stdout");
+	exec_cmd(argv[argc - 2], env);
 	close(fd);
 	return (0);
 }

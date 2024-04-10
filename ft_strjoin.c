@@ -6,12 +6,12 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:26:37 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/10 13:02:55 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 19:25:49 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 size_t	ft_strlen(const char *s)
 {

@@ -6,13 +6,13 @@
 #    By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 12:29:05 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/04/10 11:58:38 by xavi             ###   ########.fr        #
+#    Updated: 2024/04/11 00:54:14 by xavi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 CC = cc
-CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra 
 RM = rm -f
 INCLUDE = pipex_bonus.h pipex.h Makefile
 

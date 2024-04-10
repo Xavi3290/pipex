@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:53:11 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/10 19:27:08 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/11 01:23:54 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,13 @@ int	open_file(char *file, int infile)
 
 	if (infile)
 	{
-		fd = open(file, O_RDONLY | O_CREAT, 0644);
-		if (access(file, R_OK))
-			ft_error("permission denied");
+		fd = open(file, O_RDONLY, 0644);
 		if (fd == -1)
 			ft_error("infile");
 	}
 	else
 	{
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (access(file, W_OK))
-			ft_error("permission denied");
 		if (fd == -1)
 			ft_error("outfile");
 	}

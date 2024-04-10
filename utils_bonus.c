@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:59:34 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/11 00:51:32 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/11 01:21:17 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	open_file(char *file, int option, char *file2)
 
 	if (option == 1)
 	{
-		fd_i = open(file2, O_RDONLY | O_CREAT, 0777);
+		fd_i = open(file2, O_RDONLY, 0777);
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (dup2(fd_i, STDIN_FILENO) == -1)
 			ft_error("error failed to redirect stdin");

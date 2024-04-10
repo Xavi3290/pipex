@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:55:20 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/10 13:04:06 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 13:16:17 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	main(int argc, char **argv, char **env)
     if (!ft_strncmp(argv[1], "here_doc", 8))
     {
         if (argc < 6)
-            ft_error("./pipex here_doc lim cmd cmd file2");
+            ft_error("./pipex here_doc lim cmd cmd ... file2");
         i = 3;
         fd = open_file(argv[argc - 1], 0, NULL);
         here_doc(argv);

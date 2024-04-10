@@ -6,7 +6,7 @@
 /*   By: xavi <xavi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:55:20 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/10 13:16:17 by xavi             ###   ########.fr       */
+/*   Updated: 2024/04/10 13:18:46 by xavi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ static void	exec_cmd(char *cmd, char **env)
 
 static void put_in_pipe(char **argv, int *fd)
 {
-	char *lim;
+	char *line;
 
 	close(fd[0]);
 	while (1)
 	{
-		lim = get_next_line(STDIN_FILENO);
-		if (!ft_strncmp(lim, argv[2], ft_strlen(argv[2])))
+		line = get_next_line(STDIN_FILENO);
+		if (!ft_strncmp(line, argv[2], ft_strlen(argv[2])))
 		{
-			free(lim);
+			free(line);
 			break;
 		}
-		ft_putstr_fd(lim, fd[1]);
-		free(lim);
+		ft_putstr_fd(line, fd[1]);
+		free(line);
 	}
 }
 

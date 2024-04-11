@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:53:11 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/11 15:33:28 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:48:53 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	open_file(char *file, int infile)
 			if (fd == -1)
 				ft_error("outfile", 1, 1);
 			ft_error("permission denied\n", 0, 126);
-		}		
+		}
 	}
 	return (fd);
 }

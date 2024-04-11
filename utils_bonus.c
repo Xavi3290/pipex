@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:59:34 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/11 15:33:32 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:48:29 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ int	open_file(char *file, int option, char *file2)
 	{
 		fd_i = open(file2, O_RDONLY, 0777);
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-		if (dup2(fd_i, STDIN_FILENO) == -1)
-			ft_error("error failed to redirect stdin", 1, 2);
 		if (access(file2, R_OK))
 		{
 			if (fd_i == -1)
 				ft_error("error open file", 1, 2);
 			ft_error("permission denied\n", 0, 126);
 		}
+		if (dup2(fd_i, STDIN_FILENO) == -1)
+			ft_error("error failed to redirect stdin", 1, 2);
 		close(fd_i);
 	}
 	else

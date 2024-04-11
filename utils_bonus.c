@@ -6,16 +6,24 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:59:34 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/11 10:59:39 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:33:32 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-void	ft_error(char *str)
+void	ft_error(char *str, int per, int ex)
 {
-	perror(str);
-	exit(EXIT_FAILURE);
+	if (per)
+	{
+		perror(str);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		ft_putstr_fd(str, 2);
+		exit(ex);
+	}
 }
 
 void	ft_free_splits(char **split)
@@ -58,15 +66,15 @@ char	*get_path(char *cmd, char **env)
 	i = 0;
 	all_path = ft_split(get_env(env), ':');
 	if (!all_path)
-		ft_error("error in split");
+		ft_error("command not found\n", 0, 127);
 	while (all_path[i])
 	{
 		path_part = ft_strjoin(all_path[i], "/");
 		if (!path_part)
-			ft_error("error in strjoin");
+			ft_error("command not found\n", 0, 127);
 		exec = ft_strjoin(path_part, cmd);
 		if (!exec)
-			ft_error("error in strjoin");
+			ft_error("command not found\n", 0, 127);
 		free(path_part);
 		if (access(exec, F_OK | X_OK) == 0)
 			return (exec);
@@ -87,14 +95,18 @@ int	open_file(char *file, int option, char *file2)
 		fd_i = open(file2, O_RDONLY, 0777);
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (dup2(fd_i, STDIN_FILENO) == -1)
-			ft_error("error failed to redirect stdin");
-		if (fd_i == -1)
-			ft_error("error open file");
+			ft_error("error failed to redirect stdin", 1, 2);
+		if (access(file2, R_OK))
+		{
+			if (fd_i == -1)
+				ft_error("error open file", 1, 2);
+			ft_error("permission denied\n", 0, 126);
+		}
 		close(fd_i);
 	}
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (fd == -1)
-		ft_error("error open file");
+		ft_error("error open file", 1, 2);
 	return (fd);
 }

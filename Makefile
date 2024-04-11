@@ -6,7 +6,7 @@
 #    By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 12:29:05 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/04/11 11:00:34 by xroca-pe         ###   ########.fr        #
+#    Updated: 2024/04/11 15:29:19 by xroca-pe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ INCLUDE = pipex_bonus.h pipex.h Makefile
 SRC = ft_substr.c \
 	  ft_split.c \
 	  ft_strjoin.c \
+	  ft_putstr_fd.c \
 	  pipex.c \
 	  utils.c 
 	  

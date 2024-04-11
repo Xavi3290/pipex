@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:32:15 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/11 10:59:33 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:33:21 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ char	**ft_split(char const *s, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
+void	ft_putstr_fd(char *s, int fd);
 
 int		open_file(char *file, int infile);
-void	ft_error(char *str);
+void	ft_error(char *str, int per, int ex);
 char	*get_path(char *cmd, char **env);
 void	ft_free_splits(char **split);
 

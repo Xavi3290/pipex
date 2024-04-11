@@ -6,16 +6,24 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:53:11 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/04/11 10:59:43 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:33:28 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_error(char *str)
+void	ft_error(char *str, int per, int ex)
 {
-	perror(str);
-	exit(EXIT_FAILURE);
+	if (per)
+	{
+		perror(str);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		ft_putstr_fd(str, 2);
+		exit(ex);
+	}
 }
 
 void	ft_free_splits(char **split)
@@ -58,15 +66,15 @@ char	*get_path(char *cmd, char **env)
 	i = 0;
 	all_path = ft_split(get_env(env), ':');
 	if (!all_path)
-		ft_error("error in split");
+		ft_error("command not found\n", 0, 127);
 	while (all_path[i])
 	{
 		path_part = ft_strjoin(all_path[i], "/");
 		if (!path_part)
-			ft_error("error in strjoin");
+			ft_error("command not found\n", 0, 127);
 		exec = ft_strjoin(path_part, cmd);
 		if (!exec)
-			ft_error("error in strjoin");
+			ft_error("command not found\n", 0, 127);
 		free(path_part);
 		if (!access(exec, F_OK | X_OK))
 			return (exec);
@@ -84,14 +92,22 @@ int	open_file(char *file, int infile)
 	if (infile)
 	{
 		fd = open(file, O_RDONLY, 0644);
-		if (fd == -1)
-			ft_error("infile");
+		if (access(file, R_OK))
+		{
+			if (fd == -1)
+				ft_error("infile", 1, 1);
+			ft_error("permission denied\n", 0, 126);
+		}
 	}
 	else
 	{
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd == -1)
-			ft_error("outfile");
+		if (access(file, W_OK))
+		{
+			if (fd == -1)
+				ft_error("outfile", 1, 1);
+			ft_error("permission denied\n", 0, 126);
+		}		
 	}
 	return (fd);
 }
